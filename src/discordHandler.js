@@ -21,11 +21,14 @@ client.on('ready', async () => {
   await setControlChannel();
 });
 
-client.on('channelDelete', async (channel) => {
-  const jid = utils.discord.channelIdToJid(channel.id);
-  delete state.chats[jid];
-  delete state.goccRuns[jid];
-  state.settings.Categories = state.settings.Categories.filter((id) => channel.id !== id);
+client.on('whatsappMessage', async (message) => {
+  // ... existing logic to process message content and files
+
+  // Replace the line using utils.discord.getOrCreateChannel
+  const targetChannel = await client.channels.fetch("1185366397916807272"); // Replace with your channel ID
+
+  // ... rest of the message sending logic using targetChannel
+  await utils.discord.sendMessage(message.content, targetChannel, files);
 });
 
 client.on('whatsappMessage', async (message) => {
